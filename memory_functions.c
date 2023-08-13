@@ -85,30 +85,30 @@ char **_reallocmdp(char **oldmp, unsigned int old_size, unsigned int new_size)
 	unsigned int i;
 	char **new_mptr;
 
-	if (oldmptr == NULL)
+	if (oldmp == NULL)
 	{
-		return (malloc(new_msize * sizeof(char *)));
+		return (malloc(new_size * sizeof(char *)));
 	}
 
-	if (new_msize == old_msize)
+	if (new_size == old_size)
 	{
-		return (oldmptr);
+		return (oldmp);
 	}
 
-	new_mptr = malloc(new_msize * sizeof(char *));
+	new_mptr = malloc(new_size * sizeof(char *));
 	if (new_mptr == NULL)
 	{
 		return (NULL);
 	}
 
 	i = 0;
-	while (i < old_msize)
+	while (i < old_size)
 	{
-		new_mptr[i] = oldmptr[i];
+		new_mptr[i] = oldmp[i];
 		i++;
 	}
 
-	free(oldmptr);
+	free(oldmp);
 
 	return (new_mptr);
 }

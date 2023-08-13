@@ -1,5 +1,7 @@
 #include "main.h"
 
+void init_shell(shell_t *dcshell, char **av);
+
 /**
  * main - Entry point
  * @ac: command line arguments number (unused).
