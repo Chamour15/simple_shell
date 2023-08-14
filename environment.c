@@ -38,3 +38,32 @@ char *_envir(const char *envname, char **_environ)
 	return (envptr + env);
 }
 
+/**
+* print_env - function that prints the evironment
+* variables.
+* @dcshell: data relevant.
+*
+* Return: 1 on success.
+*/
+
+int print_env(shell_t *dcshell)
+{
+	int i = 0, j;
+
+	while (dcshell->_environ[i])
+	{
+
+		for (j = 0; dcshell->_environ[i][j]; j++)
+			;
+
+		write(STDOUT_FILENO, dcshell->_environ[i], j);
+		write(STDOUT_FILENO, "\n", 1);
+
+		i++;
+	}
+
+	dcshell->shell_status = 0;
+
+	return (1);
+}
+

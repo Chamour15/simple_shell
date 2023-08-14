@@ -12,6 +12,7 @@ int (*builtins(char *command))(shell_t *)
 
 	builtins_t builtins[] = {
 		{"exit", shell_exit},
+		{"env", print_env},
 		{NULL, NULL},
 	};
 

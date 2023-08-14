@@ -79,6 +79,7 @@ int isdir(char *path, int *i);
 
 /* environment.c */
 char *_envir(const char *envname, char **_environ);
+int print_env(shell_t *dcshell);
 
 /* command_parser.c */
 int parse_cmd(shell_t *dcshell, char *usrinput);
