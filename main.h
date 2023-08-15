@@ -51,6 +51,8 @@ struct builtins_s
 
 /* scanner.c */
 char *line_reader(int *end_of_file);
+ssize_t _getline(char **buffer, size_t *size, FILE *stream);
+void _getline2(char **bufferdp, size_t *sizedp, char *strb, size_t inpsize);
 
 /* string_functions.c*/
 char *_strcpy(char *dest, char *src);
