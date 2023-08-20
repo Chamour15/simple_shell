@@ -151,7 +151,7 @@ char *_cmd_location(char *command, char **_environ)
 	{
 		path_ptr = _strdup(cmd_path);
 		cmd_len = _strlen(command);
-		path_token = strtok(path_ptr, ":");
+		path_token = _strtok(path_ptr, ":");
 
 		for (; path_token != NULL;)
 		{
@@ -174,7 +174,7 @@ char *_cmd_location(char *command, char **_environ)
 				return (directory);
 			}
 			free(directory);
-			path_token = strtok(NULL, ":");
+			path_token = _strtok(NULL, ":");
 		}
 
 		free(path_ptr);

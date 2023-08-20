@@ -98,3 +98,52 @@ int _strcmp(char *s1, char *s2)
 	return (j);
 }
 
+/**
+ * _strtok - function that splits a string by some delimiter.
+ * @string: input string.
+ * @delim: delimiter.
+ *
+ * Return: splited string.
+ */
+char *_strtok(char *string, const char *delim)
+{
+	static char *index;
+	int i;
+
+	if (string != NULL)
+		index = string;
+	else
+		string = index;
+
+	if (*index == '\0')
+		return (NULL);
+
+	while (*index != '\0')
+	{
+		for (i = 0; delim[i] != '\0'; i++)
+		{
+			if (*index == delim[i])
+			{
+				if (index == string)
+				{
+					index++;
+					string++;
+				}
+				else
+				{
+					*index = '\0';
+					break;
+				}
+			}
+		}
+
+		if (*index == '\0')
+		{
+			index++;
+			return (string);
+		}
+		index++;
+	}
+	return (string);
+}
+

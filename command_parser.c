@@ -44,7 +44,7 @@ char **parse_cmdline(char *usrinput)
 		exit(1);
 	}
 
-	str_token = strtok(usrinput, " \t\r\n\a");
+	str_token = _strtok(usrinput, " \t\r\n\a");
 	str_tokens[0] = str_token;
 
 	i = 1;
@@ -60,7 +60,7 @@ char **parse_cmdline(char *usrinput)
 			}
 		}
 
-		str_token = strtok(NULL, " \t\r\n\a");
+		str_token = _strtok(NULL, " \t\r\n\a");
 		str_tokens[i] = str_token;
 		i++;
 	}

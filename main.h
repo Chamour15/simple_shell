@@ -59,6 +59,7 @@ char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, const char *src);
 char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
+char *_strtok(char *string, const char *delim);
 
 /* string_functions2.c*/
 int number_length(int num);
