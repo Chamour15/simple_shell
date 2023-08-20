@@ -83,6 +83,9 @@ int isdir(char *path, int *i);
 /* environment.c */
 char *_envir(const char *envname, char **_environ);
 int print_env(shell_t *dcshell);
+int _setenv(shell_t *dcshell);
+int _unsetenv(shell_t *dcshell);
+char *create_env(char *envname, char *envval);
 
 /* command_parser.c */
 int parse_cmd(shell_t *dcshell, char *usrinput);
@@ -95,6 +98,7 @@ char *non_printed(char *usrinput);
 int chk_cmd_err(char *directory, shell_t *dcshell);
 int errors(shell_t *dcshell, int error);
 char *not_found404(shell_t *dcshell);
+char *env_error(shell_t *dcshell);
 
 /* builtins_functions.c*/
 int (*builtins(char *command)) (shell_t *dcshell);

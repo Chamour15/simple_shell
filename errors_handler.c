@@ -33,6 +33,10 @@ int errors(shell_t *dcshell, int error)
 	{
 		err = not_found404(dcshell);
 	}
+	if (error == -1)
+	{
+		err = env_error(dcshell);
+	}
 
 	if (err)
 	{
@@ -73,5 +77,41 @@ char *not_found404(shell_t *dcshell)
 	_strcat(error, "\0");
 
 	return (error);
+}
+
+/**
+ * env_error - function that show setenv and unseten error msg .
+ * @dcshell: shell struct.
+ *
+ * Return: error message if there is error.
+ */
+char *env_error(shell_t *dcshell)
+{
+	char *err;
+	char *str = _itoa(dcshell->line_counter);
+	char *message = ": Unable to add or change or remove env\n";
+	int len;
+
+	len = _strlen(dcshell->av[0]) + _strlen(str);
+	len = len + _strlen(dcshell->args[0]) + _strlen(message) + 5;
+
+	err = malloc((len + 1) * sizeof(char));
+	if (err == 0)
+	{
+		free(err);
+		free(str);
+		return (NULL);
+	}
+
+	_strcpy(err, dcshell->av[0]);
+	_strcat(err, ": ");
+	_strcat(err, str);
+	_strcat(err, ": ");
+	_strcat(err, dcshell->args[0]);
+	_strcat(err, message);
+	_strcat(err, "\0");
+	free(str);
+
+	return (err);
 }
 
