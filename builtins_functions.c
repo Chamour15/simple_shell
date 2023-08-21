@@ -15,6 +15,7 @@ int (*builtins(char *command))(shell_t *)
 		{"env", print_env},
 		{"setenv", _setenv},
 		{"unsetenv", _unsetenv},
+		{"cd", change_dir},
 		{NULL, NULL},
 	};
 
@@ -51,5 +52,58 @@ int shell_exit(shell_t *dcshel)
 	}
 
 	return (0);
+}
+
+/**
+ * change_dir - function that changes current directory.
+ * @dcshell: shell struct.
+ *
+ * Return: Always 1.
+ */
+int change_dir(shell_t *dcshell)
+{
+	char *dir = dcshell->args[1];
+
+	if (dir == NULL || strcmp(dir, "$HOME") == 0 || strcmp(dir, "--") == 0)
+	{
+		go_home(dcshell);
+		return (1);
+	}
+	else if (strcmp(dir, "-") == 0)
+	{
+		go_back(dcshell);
+	return (1);
+	}
+
+	cd(dcshell);
+	return (1);
+}
+
+/**
+ * go_home - function that changes current dir
+ * to home directory.
+ *@dcshell: shell struct.
+ *
+ *Return: void, no return.
+ */
+void go_home(shell_t *dcshell)
+{
+
+	char _pwd[PATH_MAX];
+	char *_home = get_cdenv("HOME", dcshell->_environ);
+
+	getcwd(_pwd, sizeof(_pwd));
+
+	if (_home == NULL || chdir(_home) == -1)
+	{
+		errors(dcshell, 2);
+	}
+	else
+	{
+		cd_env("OLDPWD", _pwd, dcshell);
+		cd_env("PWD", _home, dcshell);
+	}
+
+	dcshell->shell_status = 0;
 }
 
