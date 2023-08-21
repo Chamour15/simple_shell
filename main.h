@@ -87,6 +87,13 @@ int _setenv(shell_t *dcshell);
 int _unsetenv(shell_t *dcshell);
 char *create_env(char *envname, char *envval);
 
+/* environment2.c */
+void cd_env(char *envname, char *envvalue, shell_t *dcshell);
+void cd(shell_t *dcshell);
+int cmp_env(const char *envname, const char *pname);
+char *get_cdenv(const char *envname, char **_environ);
+void cd_env(char *envname, char *envvalue, shell_t *dcsh);
+
 /* command_parser.c */
 int parse_cmd(shell_t *dcshell, char *usrinput);
 char **parse_cmdline(char *usrinput);
