@@ -111,6 +111,7 @@ int (*builtins(char *command)) (shell_t *dcshell);
 int shell_exit(shell_t *dcshel);
 int change_dir(shell_t *dcshell);
 void go_home(shell_t *dcshell);
+void go_back(shell_t *dcshell);
 
 #endif
 

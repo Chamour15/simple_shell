@@ -72,7 +72,7 @@ int change_dir(shell_t *dcshell)
 	else if (strcmp(dir, "-") == 0)
 	{
 		go_back(dcshell);
-	return (1);
+		return (1);
 	}
 
 	cd(dcshell);
@@ -105,5 +105,54 @@ void go_home(shell_t *dcshell)
 	}
 
 	dcshell->shell_status = 0;
+}
+
+/**
+ * go_back - function that changes current dir to the
+ * previous dir.
+ * @dcshell: shell struct.
+ *
+ * Return: void, no return.
+ */
+void go_back(shell_t *dcshell)
+{
+	char *_pwdp, *_old_pwdp, *c_pwdp, *c_old_pwdp;
+	char pwd[PATH_MAX];
+
+	getcwd(pwd, sizeof(pwd));
+	c_pwdp = _strdup(pwd);
+	_old_pwdp = get_cdenv("OLDPWD", dcshell->_environ);
+
+	if (_old_pwdp == NULL)
+	{
+		c_old_pwdp = c_pwdp;
+	}
+	else
+	{
+		c_old_pwdp = _strdup(_old_pwdp);
+	}
+
+	cd_env("OLDPWD", c_pwdp, dcshell);
+
+	switch (chdir(c_old_pwdp))
+	{
+		case -1:
+			cd_env("PWD", c_pwdp, dcshell);
+			break;
+		default:
+			cd_env("PWD", c_old_pwdp, dcshell);
+	}
+
+	_pwdp = get_cdenv("PWD", dcshell->_environ);
+	write(STDOUT_FILENO, _pwdp, _strlen(_pwdp));
+	write(STDOUT_FILENO, "\n", 1);
+	free(c_pwdp);
+
+	if (_old_pwdp)
+	{
+		free(c_old_pwdp);
+	}
+	dcshell->shell_status = 0;
+	chdir(_pwdp);
 }
 
