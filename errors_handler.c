@@ -27,6 +27,7 @@ int chk_cmd_err(char *directory, shell_t *dcshell)
  */
 int errors(shell_t *dcshell, int error)
 {
+	int cd_check = _strcmp("cd", dcshell->args[0]);
 	char *err;
 
 	if (error == 127)
@@ -36,6 +37,13 @@ int errors(shell_t *dcshell, int error)
 	if (error == -1)
 	{
 		err = env_error(dcshell);
+	}
+	if (error == 2)
+	{
+		if (cd_check == 0)
+		{
+			err = cd_error(dcshell);
+		}
 	}
 
 	if (err)
@@ -58,25 +66,29 @@ int errors(shell_t *dcshell, int error)
  */
 char *not_found404(shell_t *dcshell)
 {
-	char *error;
+	char *err, *str = _itoa(dcshell->line_counter);
 	int strlnegth;
 
-	strlnegth = _strlen(dcshell->av[0] + 1);
-	strlnegth += _strlen(dcshell->args[0]) + 24;
+	strlnegth = _strlen(dcshell->av[0]) + _strlen(str);
+	strlnegth = strlnegth + _strlen(dcshell->args[0]) + 18;
 
-	error = malloc((strlnegth + 1) * sizeof(char));
-	if (error == 0)
+	err = malloc((strlnegth + 1) * sizeof(char));
+	if (err == 0)
 	{
-		free(error);
+		free(err);
+		free(str);
 		return (NULL);
 	}
 
-	_strcpy(error, dcshell->av[0]);
-
-	_strcat(error, ": No such file or directory\n");
-	_strcat(error, "\0");
-
-	return (error);
+	_strcpy(err, dcshell->av[0]);
+	_strcat(err, ": ");
+	_strcat(err, str);
+	_strcat(err, ": ");
+	_strcat(err, dcshell->args[0]);
+	_strcat(err, ": not found\n");
+	_strcat(err, "\0");
+	free(str);
+	return (err);
 }
 
 /**
@@ -110,6 +122,44 @@ char *env_error(shell_t *dcshell)
 	_strcat(err, dcshell->args[0]);
 	_strcat(err, message);
 	_strcat(err, "\0");
+	free(str);
+
+	return (err);
+}
+
+/**
+ * cd_error - function that get error message.
+ * @dcshell: shell struct.
+ *
+ * Return: error message to the user command line.
+ */
+char *cd_error(shell_t *dcshell)
+{
+	char *err, *message, *str = _itoa(dcshell->line_counter);
+	int id, len;
+
+	if (dcshell->args[1][0] == '-')
+	{
+		message = ": Not a legal option ";
+		id = 2;
+	}
+	else
+	{
+		message = ": can't cd to given directory ";
+		id = _strlen(dcshell->args[1]);
+	}
+
+	len = _strlen(dcshell->av[0]) + _strlen(dcshell->args[0]);
+	len = len + _strlen(str) + _strlen(message) + id + 6;
+
+	err = malloc((len + 1) * sizeof(char));
+	if (err == 0)
+	{
+		free(str);
+		return (NULL);
+	}
+
+	err = cd_error2(dcshell, message, err, str);
 	free(str);
 
 	return (err);

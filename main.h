@@ -105,6 +105,10 @@ int chk_cmd_err(char *directory, shell_t *dcshell);
 int errors(shell_t *dcshell, int error);
 char *not_found404(shell_t *dcshell);
 char *env_error(shell_t *dcshell);
+char *cd_error(shell_t *dcshell);
+
+/* errors_handler2.c */
+char *cd_error2(shell_t *dcshell, char *msg, char *err, char *str);
 
 /* builtins_functions.c*/
 int (*builtins(char *command)) (shell_t *dcshell);
