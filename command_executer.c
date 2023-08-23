@@ -9,11 +9,9 @@
 int find_command(shell_t *dcshell)
 {
 	int (*builtin_call)(shell_t *dcshell);
-	char *chk = dcshell->args[0];
 
-	if (chk == NULL)
+	if (dcshell->args[0] == NULL)
 	{
-		free(chk);
 		return (1);
 	}
 
@@ -83,7 +81,7 @@ int execute_cmd(shell_t *dcshell)
  */
 int isexe(shell_t *dcshell)
 {
-	int i = 0;
+	int i = 0, j;
 	char *userinput;
 	struct stat st;
 
@@ -121,7 +119,10 @@ int isexe(shell_t *dcshell)
 		}
 		i++;
 	}
-	if (i == 0)
+
+	j = i;
+
+	if (j == 0)
 	{
 		return (0);
 	}
@@ -225,4 +226,3 @@ int isdir(char *path, int *index)
 
 	return (0);
 }
-
