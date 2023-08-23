@@ -114,7 +114,7 @@ char **_reallocmdp(char **oldmp, unsigned int old_size, unsigned int new_size)
 }
 
 /**
- * free_sep - function that frees a separator
+ * free_sep - function that frees a separator 
  * singly lnked list.
  * @head: head of the linked list.
  *
@@ -139,7 +139,7 @@ void free_sep(separator_t **head)
 }
 
 /**
- * free_cmdline - function that frees command line
+ * free_cmdline - function that frees command line 
  * singly linked list.
  * @head: head of the linked list.
  *
@@ -162,4 +162,3 @@ void free_cmdline(cmdline_t **head)
 		*head = NULL;
 	}
 }
-
