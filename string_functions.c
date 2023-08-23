@@ -127,9 +127,7 @@ char *_strtok(char string[], const char *delim)
 		if (strtotok != stri)
 		{
 			if (*strtotok && *(strtotok - 1) == '\0')
-			{
 				break;
-			}
 		}
 		for (i = 0; delim[i]; i++)
 		{
@@ -137,9 +135,7 @@ char *_strtok(char string[], const char *delim)
 			{
 				*strtotok = '\0';
 				if (strtotok == stri)
-				{
 					stri++;
-				}
 				break;
 			}
 		}

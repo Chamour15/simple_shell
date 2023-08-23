@@ -10,12 +10,13 @@
 int chk_cmd_err(char *directory, shell_t *dcshell)
 {
 	int i, j, k;
+
 	if (directory == NULL)
 	{
 		errors(dcshell, 127);
 		return (1);
 	}
-	
+
 	i = _strcmp(dcshell->args[0], directory);
 	if (i != 0)
 	{

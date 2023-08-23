@@ -10,7 +10,7 @@ char *line_reader(int *end_of_file)
 {
 	size_t buffer_size;
 	char *user_input;
-	
+
 	buffer_size = 0;
 	user_input = NULL;
 
