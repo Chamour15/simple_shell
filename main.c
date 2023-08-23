@@ -97,6 +97,6 @@ void init_shell(shell_t *dcshell, char **av)
 void ctrl_c(int ctrlc)
 {
 	UNUSED(ctrlc);
-	write(STDOUT_FILENO, "\n~> ", 4);
+	write(STDIN_FILENO, "\nsimple_shell$ ", 15);
 }
 
