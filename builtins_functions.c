@@ -49,6 +49,11 @@ int shell_exit(shell_t *dcshel)
 	{
 		estate = _atoi(dcshel->args[1]);
 		dcshel->shell_status = (estate % 256);
+		free(arg);
+	}
+	if (arg == NULL)
+	{
+		free(arg);
 	}
 
 	return (0);

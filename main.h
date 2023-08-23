@@ -16,6 +16,8 @@ extern char **environ;
 
 typedef struct shell_s shell_t;
 typedef struct builtins_s builtins_t;
+typedef struct separator_s separator_t;
+typedef struct cmdline_s cmdline_t;
 
 /**
  * struct shell_s - shell_s struct.
@@ -49,6 +51,30 @@ struct builtins_s
 	int (*function)(shell_t *dcshell);
 };
 
+/**
+ * struct cmdline_s - single linked list for command line.
+ * @cmd_line: command line node pointer.
+ * @next: pointer to the next node.
+ * Description: single linked list to store command line.
+ */
+struct cmdline_s
+{
+	char *cmd_line;
+	struct cmdline_s *next;
+};
+
+/**
+ * struct separator_s - single linked list for separator.
+ * @sep: ;.
+ * @next: pointer to the next node.
+ * Description: single linked list to store separator.
+ */
+struct separator_s
+{
+	char sep;
+	struct separator_s *next;
+};
+
 /* scanner.c */
 char *line_reader(int *end_of_file);
 ssize_t _getline(char **buffer, size_t *size, FILE *stream);
@@ -59,7 +85,7 @@ char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, const char *src);
 char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
-char *_strtok(char *string, const char *delim);
+char *_strtok(char string[], const char *delim);
 
 /* string_functions2.c*/
 int number_length(int num);
@@ -72,6 +98,8 @@ int _isdigit(const char *c);
 void _memcpy(void *destptr, const void *srcptr, unsigned int sizep);
 void *_realloc(void *oldptr, unsigned int old_msize, unsigned int new_msize);
 char **_reallocmdp(char **oldmp, unsigned int old_size, unsigned int new_size);
+void free_sep(separator_t **head);
+void free_cmdline(cmdline_t **head);
 
 /* command_executer.c*/
 int find_command(shell_t *dcshell);
@@ -96,9 +124,16 @@ void cd_env(char *envname, char *envvalue, shell_t *dcsh);
 /* command_parser.c */
 int parse_cmd(shell_t *dcshell, char *usrinput);
 char **parse_cmdline(char *usrinput);
+void node(separator_t **shead, cmdline_t **chead, char *userinput);
+void next_cmd(separator_t **slist, cmdline_t **clist, shell_t *dcshell);
+
 
 /* command_parser2.c*/
 char *non_printed(char *usrinput);
+char *non_printed2(char *usrinput);
+separator_t *sep_end(separator_t **head, char separator);
+cmdline_t *line_end(cmdline_t **head, char *cmd);
+int charcmp(char string[], const char *delim);
 
 /* errors_handler.c */
 int chk_cmd_err(char *directory, shell_t *dcshell);

@@ -9,9 +9,11 @@
 int find_command(shell_t *dcshell)
 {
 	int (*builtin_call)(shell_t *dcshell);
+	char *chk = dcshell->args[0];
 
-	if (dcshell->args[0] == NULL)
+	if (chk == NULL)
 	{
+		free(chk);
 		return (1);
 	}
 
@@ -26,7 +28,7 @@ int find_command(shell_t *dcshell)
 
 /**
  * execute_cmd - function that execute command lines.
- * @dcshell: data relevant (args and input).
+ * @dcshell: shell struct.
  *
  * Return: 1 on success.
  */
@@ -206,10 +208,7 @@ char *_cmd_location(char *command, char **_environ)
  */
 int isdir(char *path, int *index)
 {
-	char pathindex;
-
-	pathindex = path[*index];
-	if (pathindex == 58)
+	if (path[*index] == 58)
 	{
 		return (1);
 	}

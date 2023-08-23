@@ -113,3 +113,53 @@ char **_reallocmdp(char **oldmp, unsigned int old_size, unsigned int new_size)
 	return (new_mptr);
 }
 
+/**
+ * free_sep - function that frees a separator
+ * singly lnked list.
+ * @head: head of the linked list.
+ *
+ * Return: void, no return.
+ */
+void free_sep(separator_t **head)
+{
+	separator_t *current_node, *temp_node;
+
+	if (head != NULL)
+	{
+		current_node = *head;
+
+		while ((temp_node = current_node) != NULL)
+		{
+			current_node = current_node->next;
+			free(temp_node);
+		}
+
+		*head = NULL;
+	}
+}
+
+/**
+ * free_cmdline - function that frees command line
+ * singly linked list.
+ * @head: head of the linked list.
+ *
+ * Return: coid no return.
+ */
+void free_cmdline(cmdline_t **head)
+{
+	cmdline_t *current_node, *temp_node;
+
+	if (head != NULL)
+	{
+		current_node = *head;
+
+		while ((temp_node = current_node) != NULL)
+		{
+			current_node = current_node->next;
+			free(temp_node);
+		}
+
+		*head = NULL;
+	}
+}
+

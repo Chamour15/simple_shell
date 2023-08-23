@@ -99,51 +99,53 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- * _strtok - function that splits a string by some delimiter.
+ * _strtok - function that tokenize a string by some delimiter.
  * @string: input string.
  * @delim: delimiter.
  *
  * Return: splited string.
  */
-char *_strtok(char *string, const char *delim)
+char *_strtok(char string[], const char *delim)
 {
-	static char *index;
-	int i;
+	unsigned int i, j;
+	static char *strtotok, *strend;
+	char *stri;
 
 	if (string != NULL)
-		index = string;
-	else
-		string = index;
-
-	if (*index == '\0')
-		return (NULL);
-
-	while (*index != '\0')
 	{
-		for (i = 0; delim[i] != '\0'; i++)
+		if (charcmp(string, delim))
+			return (NULL);
+		strtotok = string;
+		i = _strlen(string);
+		strend = &string[i];
+	}
+	stri = strtotok;
+	if (stri == strend)
+		return (NULL);
+	for (j = 0; *strtotok; strtotok++)
+	{
+		if (strtotok != stri)
 		{
-			if (*index == delim[i])
+			if (*strtotok && *(strtotok - 1) == '\0')
+				break;
+		}
+		for (i = 0; delim[i]; i++)
+		{
+			if (*strtotok == delim[i])
 			{
-				if (index == string)
+				*strtotok = '\0';
+				if (strtotok == stri)
 				{
-					index++;
-					string++;
+					stri++;
 				}
-				else
-				{
-					*index = '\0';
-					break;
-				}
+				break;
 			}
 		}
-
-		if (*index == '\0')
-		{
-			index++;
-			return (string);
-		}
-		index++;
+		if (*strtotok && j == 0)
+			j = 1;
 	}
-	return (string);
+	if (j == 0)
+		return (NULL);
+	return (stri);
 }
 

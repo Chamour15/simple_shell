@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * line_reader - function that reads the user input string.
  * @end_of_file: return value of getline function
@@ -8,8 +7,10 @@
  */
 char *line_reader(int *end_of_file)
 {
-	size_t buffer_size = 0;
+	size_t buffer_size;
 	char *user_input = NULL;
+
+	buffer_size = 0;
 
 	*end_of_file = _getline(&user_input, &buffer_size, stdin);
 
@@ -26,7 +27,7 @@ char *line_reader(int *end_of_file)
 ssize_t _getline(char **buffer, size_t *size, FILE *stream)
 {
 	char *strbuffer;
-	char lastchar = 122;
+	char lastchar = 'z';
 	static ssize_t usrinput;
 	ssize_t retuvalue;
 	int inpchar;
@@ -41,7 +42,7 @@ ssize_t _getline(char **buffer, size_t *size, FILE *stream)
 	if (strbuffer == 0)
 		return (-1);
 
-	for (; lastchar != 10;)
+	for (; lastchar != '\n';)
 	{
 		inpchar = read(STDIN_FILENO, &lastchar, 1);
 		if (inpchar == -1 || (inpchar == 0 && usrinput == 0))
@@ -59,7 +60,7 @@ ssize_t _getline(char **buffer, size_t *size, FILE *stream)
 		strbuffer[usrinput] = lastchar;
 		usrinput++;
 	}
-	strbuffer[usrinput] = 0;
+	strbuffer[usrinput] = '\0';
 	_getline2(buffer, size, strbuffer, usrinput);
 	retuvalue = usrinput;
 	if (inpchar != 0)
