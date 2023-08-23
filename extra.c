@@ -169,4 +169,3 @@ int charcmp(char string[], const char *delim)
 	}
 	return (0);
 }
-
