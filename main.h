@@ -128,7 +128,7 @@ void node(separator_t **shead, cmdline_t **chead, char *userinput);
 void next_cmd(separator_t **slist, cmdline_t **clist, shell_t *dcshell);
 
 
-/* command_parser2.c*/
+/* extra.c*/
 char *non_printed(char *usrinput);
 char *non_printed2(char *usrinput);
 separator_t *sep_end(separator_t **head, char separator);
