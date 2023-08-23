@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  * line_reader - function that reads the user input string.
  * @end_of_file: return value of getline function
@@ -9,7 +10,7 @@ char *line_reader(int *end_of_file)
 {
 	size_t buffer_size;
 	char *user_input;
-
+	
 	buffer_size = 0;
 	user_input = NULL;
 
@@ -109,4 +110,3 @@ void _getline2(char **bufferdp, size_t *sizedp, char *strb, size_t inpsize)
 		free(strb);
 	}
 }
-
