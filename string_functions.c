@@ -103,7 +103,7 @@ int _strcmp(char *s1, char *s2)
  * @string: input string.
  * @delim: delimiter.
  *
- * Return: splited string.
+ * Return: tokenized string.
  */
 char *_strtok(char string[], const char *delim)
 {
@@ -127,7 +127,9 @@ char *_strtok(char string[], const char *delim)
 		if (strtotok != stri)
 		{
 			if (*strtotok && *(strtotok - 1) == '\0')
+			{
 				break;
+			}
 		}
 		for (i = 0; delim[i]; i++)
 		{
@@ -148,4 +150,3 @@ char *_strtok(char string[], const char *delim)
 		return (NULL);
 	return (stri);
 }
-
