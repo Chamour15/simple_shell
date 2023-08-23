@@ -41,12 +41,19 @@ int (*builtins(char *command))(shell_t *)
  */
 int shell_exit(shell_t *dcshel)
 {
-	int allowed, strlen, num;
 	unsigned int estate;
-	char *arg;
+	int allowed, strlen, num, exit;
 
-	arg = dcshel->args[1];
-	if (arg != NULL)
+	if (dcshel->args[1] != NULL)
+	{
+		exit = 1;
+	}
+	else
+	{
+		exit = 0;
+	}
+
+	if (exit)
 	{
 		allowed = _isdigit(dcshel->args[1]);
 		estate = _atoi(dcshel->args[1]);
@@ -59,7 +66,6 @@ int shell_exit(shell_t *dcshel)
 			return (1);
 		}
 		dcshel->shell_status = (estate % 256);
-		free(arg);
 	}
 
 	return (0);
@@ -69,42 +75,41 @@ int shell_exit(shell_t *dcshel)
  * change_dir - function that changes current directory.
  * @dcshell: shell struct.
  *
- * Return: Always 1.
+ * Return: Alwayse 1.
  */
 int change_dir(shell_t *dcshell)
 {
 	char *dir = dcshell->args[1];
-
-	if (dir == NULL || strcmp(dir, "$HOME") == 0 || strcmp(dir, "--") == 0)
+ 
+	if (dir == NULL || _strcmp(dir, "$HOME") == 0 || _strcmp(dir, "--") == 0)
 	{
 		go_home(dcshell);
-		return (1);
+		return 1;
 	}
-	else if (strcmp(dir, "-") == 0)
+	else if (_strcmp(dir, "-") == 0)
 	{
 		go_back(dcshell);
-		return (1);
+		return 1;
 	}
-
+ 
 	cd(dcshell);
-	return (1);
+	return 1;
 }
 
 /**
  * go_home - function that changes current dir
  * to home directory.
- *@dcshell: shell struct.
+ * @dcshel: shell struct.
  *
- *Return: void, no return.
+ * Return: void, no return.
  */
 void go_home(shell_t *dcshell)
 {
-
 	char _pwd[PATH_MAX];
 	char *_home = get_cdenv("HOME", dcshell->_environ);
-
+ 
 	getcwd(_pwd, sizeof(_pwd));
-
+ 
 	if (_home == NULL || chdir(_home) == -1)
 	{
 		errors(dcshell, 2);
@@ -114,7 +119,7 @@ void go_home(shell_t *dcshell)
 		cd_env("OLDPWD", _pwd, dcshell);
 		cd_env("PWD", _home, dcshell);
 	}
-
+ 
 	dcshell->shell_status = 0;
 }
 
@@ -166,4 +171,3 @@ void go_back(shell_t *dcshell)
 	dcshell->shell_status = 0;
 	chdir(_pwdp);
 }
-
