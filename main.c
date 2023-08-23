@@ -23,7 +23,7 @@ int main(int ac, char **av)
 	sh = &dcshell;
 	for (shloop = 1; shloop == 1;)
 	{
-		write(STDIN_FILENO, "simple_shell$ ", 14);
+		write(STDIN_FILENO, "#cisfun$ ", 9);
 		user_input = line_reader(&end_of_file);
 		if (end_of_file != EOF)
 		{
@@ -97,7 +97,7 @@ void init_shell(shell_t *dcshell, char **av)
 void ctrl_c(int ctrlc)
 {
 	UNUSED(ctrlc);
-	write(STDIN_FILENO, "\nsimple_shell$ ", 15);
+	write(STDIN_FILENO, "\n#cisfun$ ", 10);
 }
 
 
