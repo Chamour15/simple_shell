@@ -174,3 +174,4 @@ void next_cmd(separator_t **slist, cmdline_t **clist, shell_t *dcshell)
 	*slist = sep_l;
 	*clist = cmd_l;
 }
+

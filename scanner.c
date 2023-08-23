@@ -110,3 +110,4 @@ void _getline2(char **bufferdp, size_t *sizedp, char *strb, size_t inpsize)
 		free(strb);
 	}
 }
+

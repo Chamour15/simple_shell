@@ -104,3 +104,4 @@ char *exit_error(shell_t *dcshell)
 
 	return (err);
 }
+

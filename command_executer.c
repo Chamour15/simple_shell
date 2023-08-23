@@ -226,3 +226,4 @@ int isdir(char *path, int *index)
 
 	return (0);
 }
+

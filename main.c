@@ -100,3 +100,4 @@ void ctrl_c(int ctrlc)
 	write(STDIN_FILENO, "\nsimple_shell$ ", 15);
 }
 
+
