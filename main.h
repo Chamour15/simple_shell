@@ -144,6 +144,8 @@ char *cd_error(shell_t *dcshell);
 
 /* errors_handler2.c */
 char *cd_error2(shell_t *dcshell, char *msg, char *err, char *str);
+char *path_error(shell_t *dcshell);
+char *exit_error(shell_t *dcshell);
 
 /* builtins_functions.c*/
 int (*builtins(char *command)) (shell_t *dcshell);

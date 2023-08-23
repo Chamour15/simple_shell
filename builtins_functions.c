@@ -41,18 +41,24 @@ int (*builtins(char *command))(shell_t *)
  */
 int shell_exit(shell_t *dcshel)
 {
+	int allowed, strlen, num;
 	unsigned int estate;
 	char *arg;
 
 	arg = dcshel->args[1];
 	if (arg != NULL)
 	{
+		allowed = _isdigit(dcshel->args[1]);
 		estate = _atoi(dcshel->args[1]);
+		strlen = _strlen(dcshel->args[1]);
+		num = estate > (unsigned int)INT_MAX;
+		if (strlen > 10 || num || !allowed)
+		{
+			errors(dcshel, 2);
+			dcshel->shell_status = 2;
+			return (1);
+		}
 		dcshel->shell_status = (estate % 256);
-		free(arg);
-	}
-	if (arg == NULL)
-	{
 		free(arg);
 	}
 

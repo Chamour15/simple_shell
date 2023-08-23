@@ -9,10 +9,34 @@
  */
 int chk_cmd_err(char *directory, shell_t *dcshell)
 {
+	int i, j, k;
+
 	if (directory == NULL)
 	{
 		errors(dcshell, 127);
 		return (1);
+	}
+
+	i = _strcmp(dcshell->args[0], directory);
+	if (i != 0)
+	{
+		j = access(directory, X_OK);
+		if (j == -1)
+		{
+			errors(dcshell, 126);
+			free(directory);
+			return (1);
+		}
+		free(directory);
+	}
+	else
+	{
+		k = access(dcshell->args[0], X_OK);
+		if (k == -1)
+		{
+			errors(dcshell, 126);
+			return (1);
+		}
 	}
 
 	return (0);
@@ -28,6 +52,7 @@ int chk_cmd_err(char *directory, shell_t *dcshell)
 int errors(shell_t *dcshell, int error)
 {
 	int cd_check = _strcmp("cd", dcshell->args[0]);
+	int exit_check = _strcmp("exit", dcshell->args[0]);
 	char *err;
 
 	if (error == 127)
@@ -38,11 +63,19 @@ int errors(shell_t *dcshell, int error)
 	{
 		err = env_error(dcshell);
 	}
+	if (error == 126)
+	{
+		err = path_error(dcshell);
+	}
 	if (error == 2)
 	{
 		if (cd_check == 0)
 		{
 			err = cd_error(dcshell);
+		}
+		else if (exit_check == 0)
+		{
+			err = exit_error(dcshell);
 		}
 	}
 
@@ -67,9 +100,8 @@ int errors(shell_t *dcshell, int error)
 char *not_found404(shell_t *dcshell)
 {
 	char *err, *str = _itoa(dcshell->line_counter);
-	int strlnegth;
+	int strlnegth = _strlen(dcshell->av[0]) + _strlen(str);
 
-	strlnegth = _strlen(dcshell->av[0]) + _strlen(str);
 	strlnegth = strlnegth + _strlen(dcshell->args[0]) + 18;
 
 	err = malloc((strlnegth + 1) * sizeof(char));
@@ -102,9 +134,8 @@ char *env_error(shell_t *dcshell)
 	char *err;
 	char *str = _itoa(dcshell->line_counter);
 	char *message = ": Unable to add or change or remove env\n";
-	int len;
+	int len = _strlen(dcshell->av[0]) + _strlen(str);
 
-	len = _strlen(dcshell->av[0]) + _strlen(str);
 	len = len + _strlen(dcshell->args[0]) + _strlen(message) + 5;
 
 	err = malloc((len + 1) * sizeof(char));

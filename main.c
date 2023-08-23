@@ -1,6 +1,7 @@
 #include "main.h"
 
 void init_shell(shell_t *dcshell, char **av);
+void ctrl_c(int ctrlc);
 
 /**
  * main - Entry point
@@ -18,10 +19,11 @@ int main(int ac, char **av)
 
 	UNUSED(ac);
 	init_shell(&dcshell, av);
+	signal(SIGINT, ctrl_c);
 	sh = &dcshell;
 	for (shloop = 1; shloop == 1;)
 	{
-		write(STDIN_FILENO, "#cisfun$ ", 9);
+		write(STDIN_FILENO, "simple_shell$ ", 14);
 		user_input = line_reader(&end_of_file);
 		if (end_of_file != EOF)
 		{
@@ -37,11 +39,8 @@ int main(int ac, char **av)
 			free(user_input);
 		}
 	}
-	while (sh->_environ[i])
-	{
+	for (i = 0; sh->_environ[i]; i++)
 		free(sh->_environ[i]);
-		i++;
-	}
 	free(sh->pid);
 	free(sh->_environ);
 	switch (dcshell.shell_status)
@@ -87,5 +86,17 @@ void init_shell(shell_t *dcshell, char **av)
 
 	dcshell->_environ[i] = NULL;
 	dcshell->pid = _itoa(getpid());
+}
+
+/**
+ * ctrl_c - function that handle the crtl + c.
+ * @ctrlc: Signal handler.
+ *
+ * Return: void, no return.
+ */
+void ctrl_c(int ctrlc)
+{
+	UNUSED(ctrlc);
+	write(STDOUT_FILENO, "\n~> ", 4);
 }
 
