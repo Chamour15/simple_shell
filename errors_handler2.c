@@ -97,11 +97,10 @@ char *exit_error(shell_t *dcshell)
 	_strcat(err, str);
 	_strcat(err, ": ");
 	_strcat(err, dcshell->args[0]);
-	_strcat(err, ": Not a legal number: ");
+	_strcat(err, ": Illegal number: ");
 	_strcat(err, dcshell->args[1]);
 	_strcat(err, "\n\0");
 	free(str);
 
 	return (err);
 }
-
