@@ -11,17 +11,17 @@ void init_shell(shell_t *dcshell, char **av);
  */
 int main(int ac, char **av)
 {
-	shell_t dcshell, *sh = &dcshell;
+	shell_t dcshell, *sh;
 	char *user_input;
 	int shloop, end_of_file;
 	unsigned int i = 0;
 
 	UNUSED(ac);
 	init_shell(&dcshell, av);
-
+	sh = &dcshell;
 	for (shloop = 1; shloop == 1;)
 	{
-		write(STDIN_FILENO, "~> ", 4);
+		write(STDIN_FILENO, "#cisfun$ ", 9);
 		user_input = line_reader(&end_of_file);
 		if (end_of_file != EOF)
 		{
