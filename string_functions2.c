@@ -84,7 +84,8 @@ char *_itoa(int num)
 		*(buffer + num_length) = (num1 % 10) + 48;
 		num1 = num1 / 10;
 		num_length--;
-	} while (num1 > 0);
+	} while (num1 > 0)
+		;
 
 	return (buffer);
 }
@@ -150,4 +151,3 @@ int _isdigit(const char *s)
 
 	return (1);
 }
-
