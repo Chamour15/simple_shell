@@ -106,7 +106,7 @@ void ctrl_c(int ctrlc)
  *
  * Return: output without comments.
  */
-char *comments(char *inp);
+char *comments(char *inp)
 {
 	int i = 0, j = 0, k;
 
@@ -138,4 +138,5 @@ char *comments(char *inp);
 		inp[k] = '\0';
 	}
 	return (inp);
+}
 
