@@ -100,4 +100,42 @@ void ctrl_c(int ctrlc)
 	write(STDIN_FILENO, "\n#simpleshell$ ", 15);
 }
 
+/**
+ * comments - function that remove comments.
+ * @inp: input string.
+ *
+ * Return: output without comments.
+ */
+char *comments(char *inp);
+{
+	int i = 0, j = 0, k;
+
+	while (inp[i])
+	{
+		if (inp[i] == '#')
+		{
+			if  (i == 0)
+			{
+				free(inp);
+				return (NULL);
+			}
+			if (inp[i - 1] == ' ')
+			{
+				j = i;
+			}
+			if (inp[i - 1] == ';'  || inp[i - 1] == '\t')
+			{
+				j = i;
+			}
+		}
+		i++;
+	}
+
+	k = j;
+	if (k != 0)
+	{
+		inp = _realloc(inp, i, k + 1);
+		inp[k] = '\0';
+	}
+	return (inp);
 
