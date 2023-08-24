@@ -118,7 +118,7 @@ char *not_found404(shell_t *dcshell)
 	_strcat(err, str);
 	_strcat(err, ": ");
 	_strcat(err, dcshell->args[0]);
-	_strcat(err, ": No such file or directory\n");
+	_strcat(err, ": not found\n");
 	_strcat(err, "\0");
 	free(str);
 
