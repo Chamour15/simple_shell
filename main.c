@@ -2,6 +2,7 @@
 
 void init_shell(shell_t *dcshell, char **av);
 void ctrl_c(int ctrlc);
+char *comments(char *inp);
 
 /**
  * main - Entry point
@@ -27,6 +28,7 @@ int main(int ac, char **av)
 		user_input = line_reader(&end_of_file);
 		if (end_of_file != EOF)
 		{
+			user_input = comments(user_input);
 			if (user_input == NULL)
 				continue;
 			shloop = parse_cmd(sh, user_input);
